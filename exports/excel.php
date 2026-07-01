@@ -1,8 +1,8 @@
 <?php
 
-require_once "../config/Conexion.php";       
-$db = new Conexion();
-$conexion = $db->conectar();
+require_once "../config/Conexion.php";
+
+$conexion = Conexion::obtenerConexion();
 
 header("Content-Type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=reporte_colaboradores.xls");
@@ -66,7 +66,7 @@ echo "<tr>
         <th>Motivo Baja</th>
       </tr>";
 
-while($fila = $resultado->fetch_assoc())
+while ($fila = $resultado->fetch_assoc())
 {
     echo "<tr>";
     echo "<td>".$fila["id_colaborador"]."</td>";
@@ -85,8 +85,8 @@ while($fila = $resultado->fetch_assoc())
     echo "<td>".$fila["salario"]."</td>";
     echo "<td>".$fila["fecha_inicio"]."</td>";
     echo "<td>".$fila["fecha_fin"]."</td>";
-    echo "<td>".(($fila["cargo_activo"] == 1) ? "Sí" : "No")."</td>";
-    echo "<td>".(($fila["empleado_activo"] == 1) ? "Sí" : "No")."</td>";
+    echo "<td>".($fila["cargo_activo"] == 1 ? "Sí" : "No")."</td>";
+    echo "<td>".($fila["empleado_activo"] == 1 ? "Sí" : "No")."</td>";
     echo "<td>".$fila["motivo_baja"]."</td>";
     echo "</tr>";
 }
@@ -94,18 +94,3 @@ while($fila = $resultado->fetch_assoc())
 echo "</table>";
 
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registro de Colaboradores</title>
-    <link rel="stylesheet" href="../assets/estilos.css">
-</head>
-<body>
-    <h1>Reporte de Colaboradores</h1>
-    <p>
-        <a href="../index.php">Volver al inicio</a>
-    </p>
-</body>
-</html> 
